@@ -24,36 +24,36 @@
     <content><![CDATA[<h2 id="论文信息"><a href="#论文信息" class="headerlink" title="论文信息"></a>论文信息</h2><blockquote>
 <p>论文标题：Graph Attention Networks<br>论文作者：Petar Velickovic、Guillem Cucurull、Arantxa Casanova、Adriana Romero、P. Lio’、Yoshua Bengio<br>论文来源：2018 ICLR<br>论文地址：<a href="https://arxiv.org/abs/1710.10903">download</a><br>论文代码：<a href="https://github.com/PetarV-/GAT">download</a> </p>
 </blockquote>
-<h2 id="INTRODUCTION"><a href="#INTRODUCTION" class="headerlink" title="INTRODUCTION"></a>INTRODUCTION</h2><h4 id="两种模态结构"><a href="#两种模态结构" class="headerlink" title="两种模态结构"></a>两种模态结构</h4><ul>
+<h2 id="INTRODUCTION"><a href="#INTRODUCTION" class="headerlink" title="INTRODUCTION"></a>INTRODUCTION</h2><h3 id="两种模态结构"><a href="#两种模态结构" class="headerlink" title="两种模态结构"></a>两种模态结构</h3><ul>
 <li>grid-like structure（网格结构）：photo </li>
 <li>irregular domain：3D meshes（三维网络）, social networks, biological networks or brain connectomes</li>
 </ul>
-<h4 id="目前研究"><a href="#目前研究" class="headerlink" title="目前研究"></a>目前研究</h4><h5 id="图的研究"><a href="#图的研究" class="headerlink" title="图的研究"></a>图的研究</h5><ul>
+<h3 id="目前研究"><a href="#目前研究" class="headerlink" title="目前研究"></a>目前研究</h3><h4 id="图的研究"><a href="#图的研究" class="headerlink" title="图的研究"></a>图的研究</h4><ul>
 <li>光谱方法：学习滤波器都依赖于拉普拉斯特征基，拉普拉斯特征基依赖于图的结构。因此，<strong>在特定结构上训练的模型不能直接应用于不同结构的图</strong>。</li>
 <li>非光谱方法：</li>
 </ul>
-<h5 id="注意力机制"><a href="#注意力机制" class="headerlink" title="注意力机制"></a>注意力机制</h5><ul>
+<h4 id="注意力机制"><a href="#注意力机制" class="headerlink" title="注意力机制"></a>注意力机制</h4><ul>
 <li>允许处理可变大小的输入，关注输入中最相关的部分来做出决策。</li>
 <li>当注意机制用于计算单个序列的表示时，通常称为自我注意或内部注意self-attention or intra-attention</li>
 </ul>
-<h4 id="attention-based-architecture"><a href="#attention-based-architecture" class="headerlink" title="attention-based architecture"></a>attention-based architecture</h4><h5 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h5><ul>
+<h3 id="attention-based-architecture"><a href="#attention-based-architecture" class="headerlink" title="attention-based architecture"></a>attention-based architecture</h3><h4 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h4><ul>
 <li>操作高效，因为它可以跨<strong>节点-邻居对node- neighbor pairs</strong>并行；</li>
 <li>它可以通过给邻居指定任意的权重来适用于不同程度的图节点；</li>
 <li>该模型直接适用于归纳学习问题inductive learning problems，包括模型必须推广到完全看不见的图的任务。</li>
 </ul>
-<h2 id="GAT-网络架构"><a href="#GAT-网络架构" class="headerlink" title="GAT 网络架构"></a>GAT 网络架构</h2><h4 id="图注意力层"><a href="#图注意力层" class="headerlink" title="图注意力层"></a>图注意力层</h4><h5 id="输入输出"><a href="#输入输出" class="headerlink" title="输入输出"></a>输入输出</h5><p>层输入：<img src="论文解读：GAT/image-20230128090753101.png" alt="image-20230128090753101" style="zoom: 67%;" /></p>
+<h2 id="GAT-网络架构"><a href="#GAT-网络架构" class="headerlink" title="GAT 网络架构"></a>GAT 网络架构</h2><h3 id="图注意力层"><a href="#图注意力层" class="headerlink" title="图注意力层"></a>图注意力层</h3><h4 id="输入输出"><a href="#输入输出" class="headerlink" title="输入输出"></a>输入输出</h4><p>层输入：<img src="论文解读：GAT/image-20230128090753101.png" alt="image-20230128090753101" style="zoom: 67%;" /></p>
 <p>输出：<img src="论文解读：GAT/image-20230129132556034.png" alt="image-20230129132556034" style="zoom: 67%;" /></p>
 <p>其中 $F$ 和 $F’$表示不同的节点特征维度， $N$是节点个数</p>
-<h5 id="注意力机制-1"><a href="#注意力机制-1" class="headerlink" title="注意力机制"></a>注意力机制</h5><p>为了获得足够的表达能力将输入特征转换为更高层次的特征，Graph attentional layer 首先根据输入的节点特征向量集，进行 self-attention处理：<br>$$<br>e_{i j}&#x3D;a(\mathbf{W} \vec{h}<em>{i}, \mathbf{W} \vec{h}</em>{j} )<br>$$<br>其中 $a$ 是一个 $\mathbb{R}^{F^{\prime}} \times \mathbb{R}^{F^{\prime}} \rightarrow \mathbb{R}$ 的映射；$W \in \mathbb{R}^{F^{\prime} \times F}$ 是一个权重矩阵（被所有 $\vec{h}<em>{i}$ 的共享）；$e</em>{ij}$ 表明节点 $j$ 的特征对节点 $i$ 的重要性，也就是注意力系数。</p>
+<h4 id="注意力机制-1"><a href="#注意力机制-1" class="headerlink" title="注意力机制"></a>注意力机制</h4><p>为了获得足够的表达能力将输入特征转换为更高层次的特征，Graph attentional layer 首先根据输入的节点特征向量集，进行 self-attention处理：<br>$$<br>e_{i j}&#x3D;a(\mathbf{W} \vec{h}<em>{i}, \mathbf{W} \vec{h}</em>{j} )<br>$$<br>其中 $a$ 是一个 $\mathbb{R}^{F^{\prime}} \times \mathbb{R}^{F^{\prime}} \rightarrow \mathbb{R}$ 的映射；$W \in \mathbb{R}^{F^{\prime} \times F}$ 是一个权重矩阵（被所有 $\vec{h}<em>{i}$ 的共享）；$e</em>{ij}$ 表明节点 $j$ 的特征对节点 $i$ 的重要性，也就是注意力系数。</p>
 <p>一般来说，self-attention 会将注意力分配到图中所有的节点上，这种做法显然会丢失结构信息。为了解决这一问题，本文使用了一种 <strong>masked attention</strong> 的方式——仅将注意力分配到节点 $i$ 的邻节点集上，即 $j \in \mathcal{N}<em>{i}$，（在本文中，节点 $i$ 也是 $\mathcal{N}</em>{i}$ 的一部分）。</p>
-<h5 id="归一化注意力系数"><a href="#归一化注意力系数" class="headerlink" title="归一化注意力系数"></a>归一化注意力系数</h5><p>为了使注意力权重在不同节点之间容易比较，我们使用 Softmax 函数对所有的选择进行标准化：<br>$$<br>\alpha_{i j}&#x3D;\operatorname{softmax}<em>{j}( e</em>{i j} )&#x3D;\frac{exp (e_{i j} )}{\sum \limits <em>{k \in \mathcal{N}</em>{i}} exp (e_{i k} )}<br>$$<br>其中，$\overrightarrow{\mathbf{a}} \in \mathbb{R}^{2 F^{\prime}} $ 是单层前馈神经网络 $a$ 的一个权重向量参数。$a$ 使用 LeakyReLU 非线性激活函数（在负区间，斜率 $\alpha&#x3D;0.2$）。</p>
+<h4 id="归一化注意力系数"><a href="#归一化注意力系数" class="headerlink" title="归一化注意力系数"></a>归一化注意力系数</h4><p>为了使注意力权重在不同节点之间容易比较，我们使用 Softmax 函数对所有的选择进行标准化：<br>$$<br>\alpha_{i j}&#x3D;\operatorname{softmax}<em>{j}( e</em>{i j} )&#x3D;\frac{exp (e_{i j} )}{\sum \limits <em>{k \in \mathcal{N}</em>{i}} exp (e_{i k} )}<br>$$<br>其中，$\overrightarrow{\mathbf{a}} \in \mathbb{R}^{2 F^{\prime}} $ 是单层前馈神经网络 $a$ 的一个权重向量参数。$a$ 使用 LeakyReLU 非线性激活函数（在负区间，斜率 $\alpha&#x3D;0.2$）。</p>
 <p>注意力机制的完全形式为：<br>$$<br>\alpha_{i j}&#x3D;\frac{exp (\operatorname{LeakyReLU}(\overrightarrow{\mathbf{a}}^{T}[\mathbf{W} \vec{h}<em>{i} || \mathbf{W} \vec{h}</em>{j} ] ) )}{\sum \limits <em>{k \in \mathcal{N}</em>{i}} exp (\operatorname{LeakyReLU}(\overrightarrow{\mathbf{a}}^{T}[\mathbf{W} \vec{h}<em>{i} || \mathbf{W} \vec{h}</em>{k} ] ) )}<br>$$<br>其中， $\vec{a}^{T} \in \mathbb{R}^{2 F^{\prime}}$ 为前馈神经网络 $a$ 的参数，${.}^{T} $ 代表着是转置操作，$||$ 是串联操作（ t.cat ）。这里最终 $\alpha_{ij} \epsilon  {\mathbb{R}}$ </p>
-<h5 id="通过邻居节点更新自身节点"><a href="#通过邻居节点更新自身节点" class="headerlink" title="通过邻居节点更新自身节点"></a>通过邻居节点更新自身节点</h5><h6 id="1-加权求和"><a href="#1-加权求和" class="headerlink" title="1. 加权求和"></a>1. 加权求和</h6><p>$$<br>\vec{h}<em>{i}^{\prime}&#x3D;\sigma(\sum \limits <em>{j \in \mathcal{N}</em>{\mathbf{1}}} \alpha</em>{i j} \mathbf{W} \vec{h}_{j} )<br>$$</p>
+<h4 id="通过邻居节点更新自身节点"><a href="#通过邻居节点更新自身节点" class="headerlink" title="通过邻居节点更新自身节点"></a>通过邻居节点更新自身节点</h4><h6 id="1-加权求和"><a href="#1-加权求和" class="headerlink" title="1. 加权求和"></a>1. 加权求和</h6><p>$$<br>\vec{h}<em>{i}^{\prime}&#x3D;\sigma(\sum \limits <em>{j \in \mathcal{N}</em>{\mathbf{1}}} \alpha</em>{i j} \mathbf{W} \vec{h}_{j} )<br>$$</p>
 <h6 id="2-Multi-head-Attention"><a href="#2-Multi-head-Attention" class="headerlink" title="2. Multi-head Attention"></a>2. <strong>Multi-head Attention</strong></h6><p>为提高模型的拟合能力，本文引入了 multi-head attention ，即同时使用多个 $W^{k}$ 计算 self-attention，然后将各个 $W^{k}$ 计算得到的结果合并（连接concat或求和）：<br>$$<br>\vec{h}<em>{i}^{\prime}&#x3D;||</em>{k&#x3D;1}^{K} \sigma(\sum \limits <em>{j \in \mathcal{N}</em>{i}} \alpha_{i j}^{k} \mathbf{W}^{k} \vec{h}<em>{j} )<br>$$<br>其中， $||$ 表示concat，$a</em>{i j}^{k}$ 表示第 $k$ 个注意机制计算的归一化注意力系数。由于 $W^{k} \in \mathbb{R}^{F^{\prime} \times F}$ , 因此这里的 $\vec{h}_{i}^{\prime} \in \mathbb{R}^{K F^{\prime}}$ 。</p>
 <p>如果我们对网络的<strong>最终（预测）层</strong>执行 multi-head attention ，那么连接就不再是明智的，可以采取求和的方式来得到 $\vec{h}<em>{i}^{\prime}$：<br>$$<br>\vec{h}</em>{i}^{\prime}&#x3D;\sigma(\frac{1}{K} \sum \limits <em>{k&#x3D;1}^{K} \sum \limits</em>{j \in \mathcal{N}<em>{i}} \alpha</em>{i j}^{k} \mathbf{W}^{k} \vec{h}<em>{j} )<br>$$<br>　　由于 $W^{k} \in \mathbb{R}^{F^{\prime} \times F}$ ，因此这里的 $\vec{h}</em>{i}^{\prime} \in \mathbb{R}^{ F^{\prime}}$ 。</p>
 <h6 id="3-生成注意力系数及Multi-head-Attention-图示"><a href="#3-生成注意力系数及Multi-head-Attention-图示" class="headerlink" title="3. 生成注意力系数及Multi-head Attention 图示"></a>3. 生成注意力系数及Multi-head Attention 图示</h6><p><img src="/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB%EF%BC%9AGAT/image-20230129153316633.png" alt="image-20230129153316633"></p>
 <p>右图中不同颜色表示不同的head，一共有三个head。</p>
-<h4 id="GAT相比于先前研究的优势"><a href="#GAT相比于先前研究的优势" class="headerlink" title="GAT相比于先前研究的优势"></a>GAT相比于先前研究的优势</h4><ul>
+<h3 id="GAT相比于先前研究的优势"><a href="#GAT相比于先前研究的优势" class="headerlink" title="GAT相比于先前研究的优势"></a>GAT相比于先前研究的优势</h3><ul>
 <li>计算高效。Self-Attention层的可以跨所有边并行化，输出特征的计算可以跨所有节点并行化。</li>
 <li>可解释，且更有效。</li>
 <li>Inductive learning。可以泛化到未见过的节点和图，甚至completely unseen graph</li>
