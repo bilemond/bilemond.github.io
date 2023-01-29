@@ -20,28 +20,36 @@
     var CONFIG = {"hostname":"bilemond.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":-1,"unescape":true,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Lemondy&#39;s Blogs">
-<meta property="og:url" content="https://bilemond.github.io/index.html">
+  <meta name="description" content="[TOC] 0 论文信息 论文标题：Graph Attention Networks论文作者：Petar Velickovic、Guillem Cucurull、Arantxa Casanova、Adriana Romero、P. Lio’、Yoshua Bengio论文来源：2018 ICLR论文地址：download论文代码：download   1 INTRODUCTION1.1 两种模态结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="论文解读：GAT">
+<meta property="og:url" content="https://bilemond.github.io/2023/01/29/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB%EF%BC%9AGAT/index.html">
 <meta property="og:site_name" content="Lemondy&#39;s Blogs">
+<meta property="og:description" content="[TOC] 0 论文信息 论文标题：Graph Attention Networks论文作者：Petar Velickovic、Guillem Cucurull、Arantxa Casanova、Adriana Romero、P. Lio’、Yoshua Bengio论文来源：2018 ICLR论文地址：download论文代码：download   1 INTRODUCTION1.1 两种模态结">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://bilemond.github.io/2023/01/29/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB%EF%BC%9AGAT/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB%EF%BC%9AGAT/image-20230128090753101.png">
+<meta property="og:image" content="https://bilemond.github.io/2023/01/29/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB%EF%BC%9AGAT/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB%EF%BC%9AGAT/image-20230129132556034.png">
+<meta property="og:image" content="https://bilemond.github.io/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB%EF%BC%9AGAT/image-20230129153316633.png">
+<meta property="article:published_time" content="2023-01-29T03:54:52.000Z">
+<meta property="article:modified_time" content="2023-01-29T07:53:04.341Z">
 <meta property="article:author" content="Lemondy">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bilemond.github.io/2023/01/29/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB%EF%BC%9AGAT/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB%EF%BC%9AGAT/image-20230128090753101.png">
 
-<link rel="canonical" href="https://bilemond.github.io/">
+<link rel="canonical" href="https://bilemond.github.io/2023/01/29/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB%EF%BC%9AGAT/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>Lemondy's Blogs</title>
+  <title>论文解读：GAT | Lemondy's Blogs</title>
   
 
 
@@ -179,9 +187,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
@@ -197,10 +206,9 @@
       <meta itemprop="name" content="Lemondy's Blogs">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/01/29/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB%EF%BC%9AGAT/" class="post-title-link" itemprop="url">论文解读：GAT</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          论文解读：GAT
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -214,6 +222,13 @@
             </span>
 
           
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
 
         </div>
       </header>
@@ -224,7 +239,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>[TOC]</p>
+        <p>[TOC]</p>
 <h2 id="0-论文信息"><a href="#0-论文信息" class="headerlink" title="0 论文信息"></a>0 论文信息</h2><blockquote>
 <p>论文标题：Graph Attention Networks<br>论文作者：Petar Velickovic、Guillem Cucurull、Arantxa Casanova、Adriana Romero、P. Lio’、Yoshua Bengio<br>论文来源：2018 ICLR<br>论文地址：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1710.10903">download</a><br>论文代码：<a target="_blank" rel="noopener" href="https://github.com/PetarV-/GAT">download</a> </p>
 </blockquote>
@@ -296,91 +311,30 @@
 <h2 id="Typora数学公式大全"><a href="#Typora数学公式大全" class="headerlink" title="Typora数学公式大全"></a>Typora数学公式大全</h2><p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/Lian_Ge_Blog/article/details/125319801">https://blog.csdn.net/Lian_Ge_Blog/article/details/125319801</a><br>$$<br>\sum_{i+1}^m \prod\coprod\int\oint\iint\oiint…..\infty\nabla\partial\eth\forall\exists\nexists\varnothing\mho<br>$$<br>$$<br>\cong\equiv\neq\sim\simeq\approx\approxeq (<strong><strong>)<br>\leq\leqq\ll\lll\geq\geqq\gg\ggg(</strong></strong>)\<br>\supset\supseteq\notin\in\ni\subset\subseteq<br>$$<br>$$<br>\vert{}\Vert\langle\rangle\lfloor\rfloor\Uparrow\uparrow\downarrow\Downarrow\bigoplus\bigotimes\bigodot\ast\<br>\star\times\div….\</p>
 <p>\leftarrow\longleftarrow\Leftarrow\Longleftarrow\uparrow\Uparrow\rightarrow\downarrow…..\<br>\leftrightarrow\Longleftrightarrow\nearrow\searrow\swarrow\nwarrow<br>$$</p>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://bilemond.github.io/2023/01/25/hello-world/">
+        
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Lemondy">
-      <meta itemprop="description" content="">
-    </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lemondy's Blogs">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/01/25/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2023-01-25 11:07:03" itemprop="dateCreated datePublished" datetime="2023-01-25T11:07:03+08:00">2023-01-25</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/01/25/hello-world/" rel="prev" title="Hello World">
+      <i class="fa fa-chevron-left"></i> Hello World
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
-  
-
-
   
 
 
@@ -433,6 +387,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-%E8%AE%BA%E6%96%87%E4%BF%A1%E6%81%AF"><span class="nav-number">1.</span> <span class="nav-text">0 论文信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-INTRODUCTION"><span class="nav-number">2.</span> <span class="nav-text">1 INTRODUCTION</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-%E4%B8%A4%E7%A7%8D%E6%A8%A1%E6%80%81%E7%BB%93%E6%9E%84"><span class="nav-number">2.0.1.</span> <span class="nav-text">1.1 两种模态结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-%E7%9B%AE%E5%89%8D%E7%A0%94%E7%A9%B6"><span class="nav-number">2.0.2.</span> <span class="nav-text">1.2 目前研究</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-1-%E5%9B%BE%E7%9A%84%E7%A0%94%E7%A9%B6"><span class="nav-number">2.0.2.1.</span> <span class="nav-text">1.2.1 图的研究</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-2-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6"><span class="nav-number">2.0.2.2.</span> <span class="nav-text">1.2.2 注意力机制</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-attention-based-architecture"><span class="nav-number">2.0.3.</span> <span class="nav-text">1.3 attention-based architecture</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-1-%E7%89%B9%E6%80%A7"><span class="nav-number">2.0.3.1.</span> <span class="nav-text">1.3.1 特性</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-GAT-%E7%BD%91%E7%BB%9C%E6%9E%B6%E6%9E%84"><span class="nav-number">3.</span> <span class="nav-text">2 GAT 网络架构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-%E5%9B%BE%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%B1%82"><span class="nav-number">3.0.1.</span> <span class="nav-text">2.1 图注意力层</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-1-%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA"><span class="nav-number">3.0.1.1.</span> <span class="nav-text">2.1.1 输入输出</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-2-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6"><span class="nav-number">3.0.1.2.</span> <span class="nav-text">2.1.2 注意力机制</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-3-%E5%BD%92%E4%B8%80%E5%8C%96%E6%B3%A8%E6%84%8F%E5%8A%9B%E7%B3%BB%E6%95%B0"><span class="nav-number">3.0.1.3.</span> <span class="nav-text">2.1.3 归一化注意力系数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-4-%E9%80%9A%E8%BF%87%E9%82%BB%E5%B1%85%E8%8A%82%E7%82%B9%E6%9B%B4%E6%96%B0%E8%87%AA%E8%BA%AB%E8%8A%82%E7%82%B9"><span class="nav-number">3.0.1.4.</span> <span class="nav-text">2.1.4 通过邻居节点更新自身节点</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-%E5%8A%A0%E6%9D%83%E6%B1%82%E5%92%8C"><span class="nav-number">3.0.1.4.1.</span> <span class="nav-text">1. 加权求和</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-Multi-head-Attention"><span class="nav-number">3.0.1.4.2.</span> <span class="nav-text">2. Multi-head Attention</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-%E7%94%9F%E6%88%90%E6%B3%A8%E6%84%8F%E5%8A%9B%E7%B3%BB%E6%95%B0%E5%8F%8AMulti-head-Attention-%E5%9B%BE%E7%A4%BA"><span class="nav-number">3.0.1.4.3.</span> <span class="nav-text">3. 生成注意力系数及Multi-head Attention 图示</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-GAT%E7%9B%B8%E6%AF%94%E4%BA%8E%E5%85%88%E5%89%8D%E7%A0%94%E7%A9%B6%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="nav-number">3.0.2.</span> <span class="nav-text">2.2 GAT相比于先前研究的优势</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8B%B1%E6%96%87%E5%86%99%E4%BD%9C"><span class="nav-number">4.</span> <span class="nav-text">英文写作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%91%98%E8%A6%81"><span class="nav-number">4.1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#INTRODUCTION"><span class="nav-number">4.2.</span> <span class="nav-text">INTRODUCTION</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GAT-ARCHITECTURE"><span class="nav-number">4.3.</span> <span class="nav-text">GAT ARCHITECTURE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CONCLUSIONS"><span class="nav-number">4.4.</span> <span class="nav-text">CONCLUSIONS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Typora%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F%E5%A4%A7%E5%85%A8"><span class="nav-number">5.</span> <span class="nav-text">Typora数学公式大全</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
